@@ -25,9 +25,12 @@ export default function NavBar() {
             aria-label="menu"
             sx={{ mr: 2 }}
           />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
+          { user ? (<Button
+            color="inherit"
+            onClick={() => router.push("/telescopes/add")}
+          >
+            Add Telescope
+          </Button>) : ""}
           {user ? (
             <Button color="inherit" onClick={logout}>
               Logout

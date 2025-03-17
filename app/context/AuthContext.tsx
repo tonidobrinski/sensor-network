@@ -22,7 +22,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const login = (email: string) => {
     setUser(email);
     localStorage.setItem("user", email);
-    router.push("/dashboard");
+    router.push("/");
   };
 
   const logout = () => {

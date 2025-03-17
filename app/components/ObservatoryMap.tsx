@@ -8,10 +8,15 @@ import axios from "axios";
 const ObservatoryMap = () => {
   const [observatories, setObservatories] = useState([]);
 
+  const fetchTelescopes = async () => {
+    const response = await axios.get("/api/telescopes");
+    setObservatories(response.data);
+  };
+
   useEffect(() => {
-    axios.get("/api/observatories").then((response) => {
-      setObservatories(response.data);
-    });
+    fetchTelescopes();
+    const interval = setInterval(fetchTelescopes, 5000); // Refresh every 5 sec
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -20,10 +25,8 @@ const ObservatoryMap = () => {
       zoom={2}
       style={{ height: "500px", width: "100%" }}
     >
-      {/* Base map layer */}
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      {/* Markers for the observatories */}
       {observatories.map((obs) => (
         <Marker key={obs.id} position={[obs.latitude, obs.longitude]}>
           <Popup>
