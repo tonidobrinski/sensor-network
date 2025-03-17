@@ -11,7 +11,7 @@ export async function GET(req, { params }) {
       elevation: 0,
       status: "Active",
       lastObservation: "2025-03-01",
-      image: "/hubble.jpg",
+      image: "/hubble.jpeg",
       description: "Hubble is a space telescope launched by NASA.",
     },
     {
@@ -24,7 +24,7 @@ export async function GET(req, { params }) {
       elevation: 4205,
       status: "Offline",
       lastObservation: "2025-02-15",
-      image: "/keck.jpg",
+      image: "/keck.png",
       description:
         "The Keck Observatory consists of two large telescopes in Hawaii.",
     },
