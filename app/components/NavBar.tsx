@@ -6,42 +6,46 @@ import { AuthContext } from "@/app/context/AuthContext";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
+import "../styles/components/NavBar.scss";
+import { Typography } from "@mui/material";
 
 export default function NavBar() {
   const router = useRouter();
   const { user, logout } = useContext(AuthContext)!;
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          />
-          { user ? (<Button
-            color="inherit"
-            onClick={() => router.push("/telescopes/add")}
-          >
-            Add Telescope
-          </Button>) : ""}
-          {user ? (
-            <Button color="inherit" onClick={logout}>
-              Logout
-            </Button>
-          ) : (
-            <Button color="inherit" onClick={() => router.push("/login")}>
-              Login
-            </Button>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <div className="navbar_container">
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar className="navbar_container_items">
+            <div className="navbar_container_title">
+              <Typography variant="h5">SpaceFlux</Typography>
+            </div>
+
+            <div className="navbar_buttons">
+              {user ? (
+                <Button
+                  color="inherit"
+                  onClick={() => router.push("/telescopes/add")}
+                >
+                  Add Telescope
+                </Button>
+              ) : null}
+
+              {user ? (
+                <Button color="inherit" onClick={logout}>
+                  Logout
+                </Button>
+              ) : (
+                <Button color="inherit" onClick={() => router.push("/login")}>
+                  Login
+                </Button>
+              )}
+            </div>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </div>
   );
 }

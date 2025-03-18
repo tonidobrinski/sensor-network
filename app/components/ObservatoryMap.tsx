@@ -2,8 +2,10 @@
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "../styles/components/ObservatoryMap.scss"
 
 const ObservatoryMap = () => {
   const [observatories, setObservatories] = useState([]);
@@ -19,16 +21,23 @@ const ObservatoryMap = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const customIcon = new L.Icon({
+    iconUrl: "/pin.png",
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+  });
+
   return (
     <MapContainer
       center={[20, 0]}
       zoom={2}
-      style={{ height: "500px", width: "100%" }}
+      className="map_container"
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
       {observatories.map((obs) => (
-        <Marker key={obs.id} position={[obs.latitude, obs.longitude]}>
+        <Marker key={obs.id} position={[obs.latitude, obs.longitude]} icon={customIcon}>
           <Popup>
             <strong>{obs.name}</strong>
             <br />

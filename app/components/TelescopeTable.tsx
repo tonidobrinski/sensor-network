@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { AuthContext } from "@/app/context/AuthContext";
 
 const fetchTelescopes = async () => {
   const response = await axios.get("/api/telescopes");
@@ -24,6 +26,7 @@ const TelescopeTable = () => {
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const [selectedTelescope, setSelectedTelescope] = useState(null);
+  const { user } = useContext(AuthContext)!;
 
   const { data: telescopes = [], isLoading } = useQuery({
     queryKey: ["telescopes"],
@@ -61,26 +64,30 @@ const TelescopeTable = () => {
     { field: "elevation", headerName: "Elevation (m)", flex: 1 },
     { field: "status", headerName: "Status", flex: 1 },
     { field: "lastObservation", headerName: "Last Observation", flex: 1 },
-    {
-      field: "actions",
-      headerName: "Actions",
-      flex: 1,
-      renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => handleDeleteClick(params.row)}
-        >
-          Delete
-        </Button>
-      ),
-    },
+    ...(user
+      ? [
+          {
+            field: "actions",
+            headerName: "Actions",
+            flex: 1,
+            renderCell: (params) => (
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => handleDeleteClick(params.row)}
+              >
+                Delete
+              </Button>
+            ),
+          },
+        ]
+      : []),
   ];
 
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <Box sx={{ height: 400, width: "100%", mt: 4 }}>
+    <Box sx={{ height: "auto", width: "100%", mt: 4 }}>
       <DataGrid
         rows={telescopes}
         columns={columns}
@@ -89,7 +96,6 @@ const TelescopeTable = () => {
         onRowDoubleClick={(row) => router.push(`/telescopes/${row.id}`)}
       />
 
-      {/* Confirmation Modal */}
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>

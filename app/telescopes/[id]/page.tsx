@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
+import "../../styles/components/TelescopeDetails.scss";
 
 const TelescopeDetails = () => {
   const { id } = useParams();
   const [telescope, setTelescope] = useState([]);
   const [tasks, setTasks] = useState([]);
-  const [refresh, setRefresh] = useState(false);
+  const router = useRouter();
 
   const fetchData = async () => {
     await axios.get(`/api/telescopes/${id}`).then((res) => {
@@ -23,26 +25,27 @@ const TelescopeDetails = () => {
   useEffect(() => {
     if (id) {
       fetchData();
-      console.log("RESPONSE: ", id);
     }
-  }, [id, refresh]);
+  }, [id]);
 
-  const handleRefetch = () => {
-    setRefresh((prev) => !prev);
+  const handleRedirect = () => {
+    router.push("/");
   };
 
   if (!telescope) return <p>Loading...</p>;
 
   return (
-    <Box sx={{ p: 4 }}>
+    <Box sx={{ p: 4 }} className="detail-page">
       <Card>
-        <CardContent>
-          <Typography variant="h4">{telescope.name}</Typography>
+        <CardContent className="card-content">
+          <div className="detail-header">
+            <Typography variant="h4">{telescope.name}</Typography>
+          </div>
           <img
             src={telescope.image}
             alt={telescope.name}
             width="100%"
-            style={{ borderRadius: 8, marginTop: 16 }}
+            className="telescopes_image"
           />
           <Typography variant="body1">Network: {telescope.network}</Typography>
           <Typography variant="body1">
@@ -68,10 +71,12 @@ const TelescopeDetails = () => {
       </Card>
 
       <Box sx={{ mt: 4 }}>
-        <Typography variant="h5">Scheduled Observations</Typography>
+        <Typography variant="h5" className="section-title">
+          Scheduled Observations
+        </Typography>
         {tasks.length > 0 ? (
           tasks.map((task) => (
-            <Card key={task.id} sx={{ mt: 2 }}>
+            <Card key={task.id} className="task-card">
               <CardContent>
                 <Typography variant="body1">{task.name}</Typography>
                 <Typography variant="body2">{task.date}</Typography>
@@ -83,9 +88,9 @@ const TelescopeDetails = () => {
         )}
       </Box>
 
-      <Box sx={{ mt: 4 }}>
-        <Button variant="contained" onClick={handleRefetch}>
-          Refetch Data
+      <Box sx={{ mt: 4 }} className="back-button">
+        <Button variant="contained" onClick={handleRedirect}>
+          Back to Home Page
         </Button>
       </Box>
     </Box>
