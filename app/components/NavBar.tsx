@@ -3,16 +3,19 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { AuthContext } from "@/app/context/AuthContext";
+import { useThemeContext } from "@/app/context/ThemeContext";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
+import { Typography, IconButton } from "@mui/material";
+import { Brightness4, Brightness7 } from "@mui/icons-material";
 import "../styles/components/NavBar.scss";
-import { Typography } from "@mui/material";
 
 export default function NavBar() {
   const router = useRouter();
   const { user, logout } = useContext(AuthContext)!;
+  const { toggleTheme, darkMode } = useThemeContext();
 
   return (
     <div className="navbar_container">
@@ -24,14 +27,14 @@ export default function NavBar() {
             </div>
 
             <div className="navbar_buttons">
-              {user ? (
+              {user && (
                 <Button
                   color="inherit"
                   onClick={() => router.push("/telescopes/add")}
                 >
                   Add Telescope
                 </Button>
-              ) : null}
+              )}
 
               {user ? (
                 <Button color="inherit" onClick={logout}>
@@ -42,6 +45,10 @@ export default function NavBar() {
                   Login
                 </Button>
               )}
+
+              <IconButton color="inherit" onClick={toggleTheme}>
+                {darkMode ? <Brightness7 /> : <Brightness4 />}
+              </IconButton>
             </div>
           </Toolbar>
         </AppBar>
