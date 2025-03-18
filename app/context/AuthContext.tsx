@@ -1,12 +1,7 @@
 "use client";
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
-
-type AuthContextType = {
-  user: string | null;
-  login: (email: string) => void;
-  logout: () => void;
-}
+import { AuthContextType } from "../types/context/authContext";
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 

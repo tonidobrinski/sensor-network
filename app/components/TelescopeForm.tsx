@@ -7,7 +7,7 @@ import * as yup from "yup";
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import "../styles/components/TelescopeForm.scss"
+import "../styles/components/TelescopeForm.scss";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -30,9 +30,9 @@ const TelescopeForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: TelescopeDetails) => {
     try {
       await axios.post("/api/telescopes", data);
       setSuccessMessage("Telescope added successfully!");
@@ -46,39 +46,38 @@ const TelescopeForm = () => {
 
   return (
     <div className="telescope-form">
-    <h1>Add a New Telescope</h1>
-    {successMessage && <p className="success-message">{successMessage}</p>}
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("name")} placeholder="Telescope Name" />
-      <p>{errors.name?.message}</p>
-  
-      <input {...register("network")} placeholder="Network" />
-      <p>{errors.network?.message}</p>
-  
-      <input {...register("location")} placeholder="Location" />
-      <p>{errors.location?.message}</p>
-  
-      <input type="number" {...register("latitude")} placeholder="Latitude" />
-      <p>{errors.latitude?.message}</p>
-  
-      <input
-        type="number"
-        {...register("longitude")}
-        placeholder="Longitude"
-      />
-      <p>{errors.longitude?.message}</p>
-  
-      <input
-        type="number"
-        {...register("elevation")}
-        placeholder="Elevation"
-      />
-      <p>{errors.elevation?.message}</p>
-  
-      <button type="submit">Add Telescope</button>
-    </form>
-  </div>
-  
+      <h1>Add a New Telescope</h1>
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input {...register("name")} placeholder="Telescope Name" />
+        <p>{errors.name?.message}</p>
+
+        <input {...register("network")} placeholder="Network" />
+        <p>{errors.network?.message}</p>
+
+        <input {...register("location")} placeholder="Location" />
+        <p>{errors.location?.message}</p>
+
+        <input type="number" {...register("latitude")} placeholder="Latitude" />
+        <p>{errors.latitude?.message}</p>
+
+        <input
+          type="number"
+          {...register("longitude")}
+          placeholder="Longitude"
+        />
+        <p>{errors.longitude?.message}</p>
+
+        <input
+          type="number"
+          {...register("elevation")}
+          placeholder="Elevation"
+        />
+        <p>{errors.elevation?.message}</p>
+
+        <button type="submit">Add Telescope</button>
+      </form>
+    </div>
   );
 };
 

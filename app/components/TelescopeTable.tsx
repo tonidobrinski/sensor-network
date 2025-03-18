@@ -24,8 +24,9 @@ const fetchTelescopes = async () => {
 const TelescopeTable = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
+
   const [open, setOpen] = useState(false);
-  const [selectedTelescope, setSelectedTelescope] = useState(null);
+  const [selectedTelescope, setSelectedTelescope] = useState<TelescopeDetails>();
   const { user } = useContext(AuthContext)!;
 
   const { data: telescopes = [], isLoading } = useQuery({
@@ -44,7 +45,7 @@ const TelescopeTable = () => {
     },
   });
 
-  const handleDeleteClick = (telescope) => {
+  const handleDeleteClick = (telescope: TelescopeDetails) => {
     setSelectedTelescope(telescope);
     setOpen(true);
   };

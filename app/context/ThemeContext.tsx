@@ -2,11 +2,7 @@
 import React, { createContext, useState, useMemo, useContext } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-
-interface ThemeContextType {
-  toggleTheme: () => void;
-  darkMode: boolean;
-}
+import { ThemeContextType } from "../types/context/themeContext";
 
 export const ThemeContext = createContext<ThemeContextType | undefined>(
   undefined

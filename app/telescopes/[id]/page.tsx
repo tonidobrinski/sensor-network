@@ -5,11 +5,12 @@ import axios from "axios";
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import "../../styles/components/TelescopeDetails.scss";
+import { TelescopeTasks } from "@/app/types/components/telescopeTasks";
 
 const TelescopeDetails = () => {
   const { id } = useParams();
-  const [telescope, setTelescope] = useState([]);
-  const [tasks, setTasks] = useState([]);
+  const [telescope, setTelescope] = useState<TelescopeDetails>();
+  const [tasks, setTasks] = useState<TelescopeTasks>([]);
   const router = useRouter();
 
   const fetchData = async () => {

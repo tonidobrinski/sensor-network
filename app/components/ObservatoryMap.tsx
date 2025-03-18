@@ -36,7 +36,7 @@ const ObservatoryMap = () => {
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      {observatories.map((obs) => (
+      {observatories.map((obs: TelescopeDetails) => (
         <Marker key={obs.id} position={[obs.latitude, obs.longitude]} icon={customIcon}>
           <Popup>
             <strong>{obs.name}</strong>
