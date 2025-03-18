@@ -92,8 +92,11 @@ const TelescopeTable = () => {
         rows={telescopes}
         columns={columns}
         pageSizeOptions={[5, 10]}
-        // onRowClick={(row) => router.push(`/telescopes/${row.id}`)}
-        onRowDoubleClick={(row) => router.push(`/telescopes/${row.id}`)}
+        onCellClick={(params) => {
+          if (params.field === "name") {
+            router.push(`/telescopes/${params.row.id}`);
+          }
+        }}
       />
 
       <Dialog open={open} onClose={() => setOpen(false)}>
