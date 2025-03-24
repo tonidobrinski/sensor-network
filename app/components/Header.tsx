@@ -1,4 +1,3 @@
-"use client";
 import "../styles/components/Header.scss";
 
 export default function Header() {
