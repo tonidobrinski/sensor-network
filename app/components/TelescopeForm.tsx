@@ -58,18 +58,18 @@ const TelescopeForm = () => {
         <input {...register("location")} placeholder="Location" />
         <p>{errors.location?.message}</p>
 
-        <input type="number" {...register("latitude")} placeholder="Latitude" />
+        <input type="tel" {...register("latitude")} placeholder="Latitude" />
         <p>{errors.latitude?.message}</p>
 
         <input
-          type="number"
+          type="tel"
           {...register("longitude")}
           placeholder="Longitude"
         />
         <p>{errors.longitude?.message}</p>
 
         <input
-          type="number"
+          type="tel"
           {...register("elevation")}
           placeholder="Elevation"
         />
