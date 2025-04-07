@@ -103,7 +103,7 @@ const TelescopeTable = () => {
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete{" "}
+          Are you sure you want to delete
           <strong>{selectedTelescope?.name}</strong>?
         </DialogContent>
         <DialogActions>

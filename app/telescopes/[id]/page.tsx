@@ -6,6 +6,7 @@ import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import "../../styles/components/TelescopeDetails.scss";
 import { TelescopeTasks } from "@/app/types/components/telescopeTasks";
+import Image from "next/image";
 
 const TelescopeDetails = () => {
   const { id } = useParams();
@@ -42,10 +43,11 @@ const TelescopeDetails = () => {
           <div className="detail-header">
             <Typography variant="h4">{telescope.name}</Typography>
           </div>
-          <img
-            src={telescope.image}
+          <Image
+            src={telescope.image as string}
             alt={telescope.name}
-            width="100%"
+            width={400}
+            height={400}
             className="telescopes_image"
           />
           <Typography variant="body1">Network: {telescope.network}</Typography>
@@ -71,29 +73,31 @@ const TelescopeDetails = () => {
         </CardContent>
       </Card>
 
-      <Box sx={{ mt: 4 }}>
-        <Typography variant="h5" className="section-title">
-          Scheduled Observations
-        </Typography>
-        {tasks.length > 0 ? (
-          tasks.map((task) => (
-            <Card key={task.id} className="task-card">
-              <CardContent>
-                <Typography variant="body1">{task.name}</Typography>
-                <Typography variant="body2">{task.date}</Typography>
-              </CardContent>
-            </Card>
-          ))
-        ) : (
-          <Typography>No upcoming tasks.</Typography>
-        )}
-      </Box>
+      <div>
+        <Box sx={{ mt: 4 }}>
+          <Typography variant="h5" className="section-title">
+            Scheduled Observations
+          </Typography>
+          {tasks.length > 0 ? (
+            tasks.map((task) => (
+              <Card key={task.id} className="task-card">
+                <CardContent>
+                  <Typography variant="body1">{task.name}</Typography>
+                  <Typography variant="body2">{task.date}</Typography>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <Typography>No upcoming tasks.</Typography>
+          )}
+        </Box>
 
-      <Box sx={{ mt: 4 }} className="back-button">
-        <Button variant="contained" onClick={handleRedirect}>
-          Back to Home Page
-        </Button>
-      </Box>
+        <Box sx={{ mt: 4 }} className="back-button">
+          <Button variant="contained" onClick={handleRedirect}>
+            Back to Home Page
+          </Button>
+        </Box>
+      </div>
     </Box>
   );
 };
