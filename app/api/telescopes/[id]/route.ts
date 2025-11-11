@@ -16,20 +16,6 @@ export async function GET(req, { params }) {
     },
     {
       id: 2,
-      name: "Keck Observatory",
-      network: "Mauna Kea",
-      location: "Hawaii",
-      latitude: 19.8,
-      longitude: -155.5,
-      elevation: 4205,
-      status: "Offline",
-      lastObservation: "2025-02-15",
-      image: "/keck.png",
-      description:
-        "The Keck Observatory consists of two large telescopes in Hawaii.",
-    },
-    {
-      id: 3,
       name: "VLT",
       network: "ESO",
       location: "Chile",
@@ -41,6 +27,20 @@ export async function GET(req, { params }) {
       image: "/vlt.jpg",
       description:
         "The Very Large Telescope (VLT) is operated by ESO in Chile.",
+    },
+    {
+      id: 3,
+      name: "Keck Observatory",
+      network: "Mauna Kea",
+      location: "Hawaii",
+      latitude: 19.8,
+      longitude: -155.5,
+      elevation: 4205,
+      status: "Offline",
+      lastObservation: "2025-02-15",
+      image: "/keck.png",
+      description:
+        "The Keck Observatory consists of two large telescopes in Hawaii.",
     },
   ];
 

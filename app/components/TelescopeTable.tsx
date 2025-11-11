@@ -15,6 +15,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { AuthContext } from "@/app/context/AuthContext";
+import { TelescopeDetails } from "../types/components/telescopeDetails";
 
 const fetchTelescopes = async () => {
   const response = await axios.get("/api/telescopes");

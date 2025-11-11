@@ -1,4 +1,4 @@
-type TelescopeDetails = {
+export type TelescopeDetails = {
   id?: string;
   name: string;
   network: string;

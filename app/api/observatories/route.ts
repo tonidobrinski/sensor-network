@@ -1,4 +1,4 @@
-let observatories = [
+const observatories = [
   {
     id: 1,
     name: "Hubble Space Telescope",
