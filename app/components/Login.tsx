@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/app/context/AuthContext";
 import { TextField, Button, Container, Box, Typography } from "@mui/material";
 import { UserLogin } from "../types/context/userLogin";
+import { useRouter } from "next/navigation";
 
 const schema = yup.object().shape({
   email: yup
@@ -19,6 +20,7 @@ const schema = yup.object().shape({
 });
 
 export default function Login() {
+  const router = useRouter();
   const { login } = useContext(AuthContext)!;
   const {
     register,
@@ -29,6 +31,10 @@ export default function Login() {
   const onSubmit = (data: UserLogin) => {
     console.log("User logged in:", data);
     login(data.email);
+  };
+
+    const handleRedirect = () => {
+    router.push("/");
   };
 
   return (
@@ -70,6 +76,13 @@ export default function Login() {
           </Button>
         </form>
       </Box>
+
+              <Box sx={{ mt: 4 }} className="back-button">
+          <Button variant="contained" onClick={handleRedirect}>
+            Back to Home Page
+          </Button>
+        </Box>
     </Container>
+    
   );
 }
