@@ -23,7 +23,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    router.push("/login");
+    router.push("/");
   };
 
   return (
