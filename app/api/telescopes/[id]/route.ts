@@ -1,54 +1,21 @@
-export async function GET(req, { params }) {
-  console.log("params.id:", params.id);
-  const telescopes = [
-    {
-      id: 1,
-      name: "Hubble Telescope",
-      network: "NASA",
-      location: "Earth Orbit",
-      latitude: 28.5,
-      longitude: -80.6,
-      elevation: 0,
-      status: "Active",
-      lastObservation: "2025-03-01",
-      image: "/hubble.jpeg",
-      description: "Hubble is a space telescope launched by NASA.",
-    },
-    {
-      id: 2,
-      name: "VLT",
-      network: "ESO",
-      location: "Chile",
-      latitude: -24.6,
-      longitude: -70.4,
-      elevation: 2635,
-      status: "Active",
-      lastObservation: "2025-03-05",
-      image: "/vlt.jpg",
-      description:
-        "The Very Large Telescope (VLT) is operated by ESO in Chile.",
-    },
-    {
-      id: 3,
-      name: "Keck Observatory",
-      network: "Mauna Kea",
-      location: "Hawaii",
-      latitude: 19.8,
-      longitude: -155.5,
-      elevation: 4205,
-      status: "Offline",
-      lastObservation: "2025-02-15",
-      image: "/keck.png",
-      description:
-        "The Keck Observatory consists of two large telescopes in Hawaii.",
-    },
-  ];
+import { NextRequest } from "next/server";
+import { telescopes } from "../db";
 
-  const telescope = telescopes.find((t) => t.id === parseInt(params.id, 10));
+export async function GET(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
+  const telescopeId = Number(id);
 
-  if (telescope) {
-    return Response.json(telescope);
-  } else {
-    return new Response("Not Found", { status: 404 });
+  console.log("Fetching telescope with ID:", telescopeId);
+  console.log("Available telescopes:", telescopes.map((t) => t.id));
+
+  const telescope = telescopes.find((t) => t.id === telescopeId);
+
+  if (!telescope) {
+    return new Response("Telescope not found", { status: 404 });
   }
+
+  return Response.json(telescope);
 }

@@ -1,5 +1,5 @@
 export type TelescopeDetails = {
-  id?: string;
+  id?: number;
   name: string;
   network: string;
   location: string;
