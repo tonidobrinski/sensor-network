@@ -1,0 +1,7 @@
+.data_table {
+    [data-field="name"][role="gridcell"] {
+        color: blue;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}

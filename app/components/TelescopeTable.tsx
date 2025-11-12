@@ -17,6 +17,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/app/context/AuthContext";
 import { TTelescopeDetails } from "../types/components/telescopeDetails";
 import LoadingSpinner from "./LoadingSpinner";
+import "../styles/components/TelescopeTable.scss"
 
 const fetchTelescopes = async () => {
   const response = await axios.get("/api/telescopes");
@@ -92,6 +93,7 @@ const TelescopeTable = () => {
   return (
     <Box sx={{ height: "auto", width: "100%", mt: 4 }}>
       <DataGrid
+        className="data_table"
         rows={telescopes}
         columns={columns}
         pageSizeOptions={[5, 10]}
