@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import "../../styles/components/TelescopeDetails.scss";
 import { TelescopeTasks } from "@/app/types/components/telescopeTasks";
 import Image from "next/image";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 const TelescopeDetails = () => {
   const { id } = useParams();
@@ -34,7 +35,7 @@ const TelescopeDetails = () => {
     router.push("/");
   };
 
-  if (!telescope) return <p>Loading...</p>;
+  if (!telescope) return <LoadingSpinner text="Loading telescopes..." />;
 
   return (
     <Box sx={{ p: 4 }} className="detail-page">

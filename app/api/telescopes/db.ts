@@ -16,7 +16,7 @@ export type Telescope = {
 
 export type Task = { id: number; name: string; date: string };
 
-export let telescopes: Telescope[] = [
+export const telescopes: Telescope[] = [
   {
     id: 1,
     name: "Hubble Space Telescope",
@@ -60,7 +60,7 @@ export let telescopes: Telescope[] = [
   },
 ];
 
-export let tasksDB: Record<number, Task[]> = {
+export const tasksDB: Record<number, Task[]> = {
   1: [{ id: 101, name: "Galaxy Survey", date: "2025-04-01" }],
   2: [{ id: 102, name: "Exoplanet Study", date: "2025-04-10" }],
   3: [{ id: 103, name: "Supernova Observation", date: "2025-03-25" }],
