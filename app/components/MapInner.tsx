@@ -6,10 +6,10 @@ import L from "leaflet";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/components/ObservatoryMap.scss";
-import { TelescopeDetails } from "../types/components/telescopeDetails";
+import { TTelescopeDetails } from "../types/components/telescopeDetails";
 
 export default function MapInner() {
-  const [observatories, setObservatories] = useState<TelescopeDetails[]>([]);
+  const [observatories, setObservatories] = useState<TTelescopeDetails[]>([]);
 
   useEffect(() => {
     const fetchTelescopes = async () => {

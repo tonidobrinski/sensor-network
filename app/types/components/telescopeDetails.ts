@@ -1,4 +1,4 @@
-export type TelescopeDetails = {
+export type TTelescopeDetails = {
   id?: number;
   name: string;
   network: string;

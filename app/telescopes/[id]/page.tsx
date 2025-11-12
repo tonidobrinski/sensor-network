@@ -6,12 +6,13 @@ import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import "../../styles/components/TelescopeDetails.scss";
 import { TelescopeTasks } from "@/app/types/components/telescopeTasks";
+import { TTelescopeDetails } from "@/app/types/components/telescopeDetails";
 import Image from "next/image";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 const TelescopeDetails = () => {
   const { id } = useParams();
-  const [telescope, setTelescope] = useState<TelescopeDetails>();
+  const [telescope, setTelescope] = useState<TTelescopeDetails>();
   const [tasks, setTasks] = useState<TelescopeTasks>([]);
   const router = useRouter();
 

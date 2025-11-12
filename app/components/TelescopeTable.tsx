@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { AuthContext } from "@/app/context/AuthContext";
-import { TelescopeDetails } from "../types/components/telescopeDetails";
+import { TTelescopeDetails } from "../types/components/telescopeDetails";
 import LoadingSpinner from "./LoadingSpinner";
 
 const fetchTelescopes = async () => {
@@ -28,7 +28,7 @@ const TelescopeTable = () => {
   const queryClient = useQueryClient();
 
   const [open, setOpen] = useState(false);
-  const [selectedTelescope, setSelectedTelescope] = useState<TelescopeDetails>();
+  const [selectedTelescope, setSelectedTelescope] = useState<TTelescopeDetails>();
   const { user } = useContext(AuthContext)!;
 
   const { data: telescopes = [], isLoading } = useQuery({
@@ -37,23 +37,23 @@ const TelescopeTable = () => {
     refetchInterval: 5000,
   });
 
-  const deleteMutation = useMutation({
-    mutationFn: async (id) => {
+  const deleteMutation = useMutation<void, Error, number>({
+    mutationFn: async (id: number) => {
       await axios.delete("/api/telescopes", { data: { id } });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["telescopes"]);
+      queryClient.invalidateQueries({ queryKey: ["telescopes"] });
       setOpen(false);
     },
   });
 
-  const handleDeleteClick = (telescope: TelescopeDetails) => {
+  const handleDeleteClick = (telescope: TTelescopeDetails) => {
     setSelectedTelescope(telescope);
     setOpen(true);
   };
 
   const confirmDelete = () => {
-    if (selectedTelescope) {
+    if (selectedTelescope?.id !== undefined) {
       deleteMutation.mutate(selectedTelescope.id);
     }
   };
@@ -73,7 +73,7 @@ const TelescopeTable = () => {
             field: "actions",
             headerName: "Actions",
             flex: 1,
-            renderCell: (params) => (
+            renderCell: (params: { row: TTelescopeDetails; }) => (
               <Button
                 variant="contained"
                 color="secondary"

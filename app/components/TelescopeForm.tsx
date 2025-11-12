@@ -8,6 +8,7 @@ import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import "../styles/components/TelescopeForm.scss";
+import { TTelescopeDetails } from "../types/components/telescopeDetails";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -32,12 +33,12 @@ const TelescopeForm = () => {
 
   const [successMessage, setSuccessMessage] = useState<string>("");
 
-  const onSubmit = async (data: TelescopeDetails) => {
+  const onSubmit = async (data: TTelescopeDetails) => {
     try {
       await axios.post("/api/telescopes", data);
       setSuccessMessage("Telescope added successfully!");
       reset();
-      queryClient.invalidateQueries(["telescopes"]);
+      queryClient.invalidateQueries({ queryKey: ["telescopes"] });
       router.push("/");
     } catch (error) {
       console.error("Error adding telescope:", error);
